@@ -12,8 +12,5 @@ y <- dataset$Y AXIS NAME
 # Create your plot
 plot(y ~ x)
 
-#Create a linear model in order to see summary statistics - only works in R
-plotLM <- lm(y ~ x)
-
 #Summary statistics for linear model - only works in R
-summary(lm(plotLM))
+summary(lm(y ~ x))
