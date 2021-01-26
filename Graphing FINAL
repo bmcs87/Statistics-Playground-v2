@@ -12,5 +12,5 @@ y <- dataset$Y AXIS NAME
 # Create your plot
 plot(y ~ x)
 
-#Summary statistics for linear model - only works in R
+#Summary statistics for linear model - only works in R; not PBI
 summary(lm(y ~ x))
