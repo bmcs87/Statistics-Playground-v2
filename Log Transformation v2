@@ -1,0 +1,21 @@
+# EDIT LOCATION FILE SAVED HERE (example: "C:/Users/resmi/Documents")
+setwd("C:/Users/resmi/Documents")
+
+# Call your dataset
+dataset <- read.delim("dataset.txt", quote = "")
+attach(dataset)
+
+#UPDATE THE X & Y AXIS NAMES; PLEASE REMEMBER TO ADD A PERIOD '.' BETWEEN AXIS NAME SPACE ("NonBrand.Clicks") & AXIS NAMES ARE CASE SENSITIVE ("NonBrand.Clicks" is different from "nonbrand.clicks")
+x <- dataset$SumSRPV
+y <- dataset$SumClicks
+
+# Plot the log-log
+plot(log(y) ~ log(x))
+
+#Summary statistics for linear model - only works in R; not PBI
+summary(lm((log(y) ~ log(x)))
+
+#Print new dataset out (only works in R itself; not PBI)
+options(max.print = .Machine$integer.max)
+dataset <- data.frame(dataset, log(y), log(x))
+print(dataset)
