@@ -9,13 +9,34 @@ attach(dataset)
 x <- dataset$SumSRPV
 y <- dataset$SumClicks
 
-# Plot the log-log
+#UPDATE WITH ANSWER TO IS X-AXIS A DATE?  IF YES, TYPE "Yes" or "No"
+is.x.date <- "No"
+
+#If / Else statement to check if X-Axis is a date
+if(is.x.date=="Yes"){
+
+###If x-axis a date, do the following three steps:  
+# 1) Plot the graph using only log(y)  
+plot(log(y) ~ x)
+  
+# 2) Summary statistics for linear model for log(y) only - only works in R; not PBI
+summary(lm(log(y)~x))
+  
+# 3) Print new dataset out for log(y) only - only works in R itself; not PBI
+options(max.print = .Machine$integer.max)
+dataset <- data.frame(dataset, log(y))
+
+###If x-axis is NOT a date, do the following three steps:
+} else {
+  
+# 1) Plot the log-log
 plot(log(y) ~ log(x))
-
-#Summary statistics for linear model - only works in R; not PBI
+  
+# 2) Summary statistics for linear model - only works in R; not PBI
 summary(lm(log(y)~log(x)))
-
-#Print new dataset out (only works in R itself; not PBI)
+  
+# 3) Print new dataset out - only works in R itself; not PBI
 options(max.print = .Machine$integer.max)
 dataset <- data.frame(dataset, log(y), log(x))
 print(dataset)
+}
