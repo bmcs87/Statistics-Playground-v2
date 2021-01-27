@@ -25,6 +25,7 @@ summary(lm(log(y)~x))
 # 3) Print new dataset out for log(y) only - only works in R itself; not PBI
 options(max.print = .Machine$integer.max)
 dataset <- data.frame(dataset, log(y))
+print(dataset)
 
 ###If x-axis is NOT a date, do the following three steps:
 } else {
