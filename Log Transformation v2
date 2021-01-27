@@ -9,8 +9,8 @@ attach(dataset)
 x <- dataset$SumSRPV
 y <- dataset$SumClicks
 
-#UPDATE WITH ANSWER TO IS X-AXIS A DATE?  IF YES, TYPE "Yes" or "No"
-is.x.date <- "No"
+#UPDATE WITH ANSWER TO IS X-AXIS A DATE?  IF YES, TYPE "Yes" or "No" - KEEP THE WORD IN QUOTES
+is.x.date <- "Yes or No"
 
 #If / Else statement to check if X-Axis is a date
 if(is.x.date=="Yes"){
