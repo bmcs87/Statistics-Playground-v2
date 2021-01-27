@@ -1,0 +1,52 @@
+#Run Quantitative Check for p-value > 0.05 to determine if Heteroskedasticity is needed
+#Use this in combination of visual analysis of Residual graph
+
+# EDIT LOCATION FILE SAVED HERE (example: "C:/Users/resmi/Documents")
+setwd("C:/LOCATION SAVED")
+
+# Call your dataset
+dataset <- read.delim("dataset.txt", quote = "")
+attach(dataset)
+
+#UPDATE THE X & Y AXIS NAMES; PLEASE REMEMBER TO ADD A PERIOD '.' BETWEEN AXIS NAME SPACE ("NonBrand.Clicks") & AXIS NAMES ARE CASE SENSITIVE ("NonBrand.Clicks" is different from "nonbrand.clicks")
+x <- dataset$X AXIS NAME
+y <- dataset$Y AXIS NAME
+
+#INPUT YOUR X & Y AXIS NAMES - MAKE SURE TO KEEP THE NAME IN QUOTES!!  This code will rename your columns.
+colnames(dataset)[colnames(dataset) %in% c("X AXIS NAME", "Y AXIS NAME")] <- c("x", "y")
+
+#Install and Call Caret and e1071 Package
+install.packages("caret", repos = "http://cran.us.r-project.org")
+install.packages("e1071", repos = "http://cran.us.r-project.org")
+install.packages("lmtest", repos = "http://cran.us.r-project.org")
+library(caret)
+library(e1071)
+library(lmtest)
+
+#Create a linear model and check if p-value is >0.05.  If so, combined with visual analysis, continue with heteroscedasticity check
+lmMod <- lm(dataset$y ~ dataset$x)
+lmtest::bptest(lmMod)
+
+#Place Output Graph Here
+# Run the heteroscedasticity transformation using the BoxCox method
+BCMod <- BoxCoxTrans(y)
+
+#Apply the transformed variable to a new dataframe
+dataset <- cbind(dataset, y_new=predict(BCMod, y))
+
+#Build the new regression model with the transformed data
+lmMod_bc <- lm(y_new ~ x, data=dataset)
+
+#Plot the new residuals model
+plot(lmMod_bc, which=1)
+
+#Place Summary Statistics Here
+#Summary statistics for linear model - only works in R; not PBI
+summary(lmMod_bc)
+
+
+
+#Print Transformed Dataset Here (includes original dataset and transformed y-term)
+#Print new dataset out - only works in R itself; not PBI
+options(max.print = .Machine$integer.max)
+print(dataset)
